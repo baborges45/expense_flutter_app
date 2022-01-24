@@ -1,3 +1,5 @@
+import 'package:expense_flutter_app/widgets/my_transactions.dart';
+import 'package:expense_flutter_app/widgets/plus_button.dart';
 import 'package:expense_flutter_app/widgets/top_card.dart';
 import 'package:flutter/material.dart';
 
@@ -13,26 +15,36 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFC4C3C3),
-      body: Column(
-        children: [
-          TopCard(
-            balance: 'R\$5,000',
-          ),
-          Expanded(
-            child: Container(
-              color: Colors.blue,
-              child: Center(
-                child: Text('Transitions'),
+      body: Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Column(
+          children: [
+            TopCard(
+              balance: '5,000',
+              income: '500',
+              expense: '300',
+            ),
+            Expanded(
+              child: Container(
+                child: Center(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      MyTransactions(
+                        transactionName: 'Teaching',
+                        money: '300',
+                        expenseOrIcome: 'icome',
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
-          Container(
-            height: 25,
-            child: Center(
-              child: Text('Button'),
-            ),
-          ),
-        ],
+            PlusButton(),
+          ],
+        ),
       ),
     );
   }

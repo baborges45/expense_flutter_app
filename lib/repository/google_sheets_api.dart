@@ -19,12 +19,16 @@ class GoogleSheetsApi {
   static const _spreadSheetId = '1tz82FaGTD2U1qUzEJrngGUcWeZA8clr6e8ES9FrCDgU';
 
   //init GSheets
-  final gsheets = GSheets(_credentials);
+  final _gsheets = GSheets(_credentials);
   static Worksheet? _worksheet;
 
+  static int numberOfTransactions = 0;
+  static List<List<dynamic>> correntTransactions = [];
+  static bool loading = true;
+
   Future init() async {
-    final ss = await gsheets.spreadsheet(_spreadSheetId);
+    final ss = await _gsheets.spreadsheet(_spreadSheetId);
     // fetch spreadsheet by its title
-    var sheet = ss.worksheetByTitle('Worksheet1');
+    _worksheet = ss.worksheetByTitle('Worksheet1');
   }
 }

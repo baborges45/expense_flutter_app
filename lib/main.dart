@@ -1,9 +1,12 @@
+import 'package:expense_flutter_app/repository/google_sheets_api.dart';
 import 'package:flutter/material.dart';
 import 'package:gsheets/gsheets.dart';
 
 import 'home/home_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  GoogleSheetsApi().init();
   runApp(const MyApp());
 }
 
