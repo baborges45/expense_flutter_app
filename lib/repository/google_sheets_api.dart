@@ -23,12 +23,47 @@ class GoogleSheetsApi {
   static Worksheet? _worksheet;
 
   static int numberOfTransactions = 0;
-  static List<List<dynamic>> correntTransactions = [];
+  static List<List<dynamic>> currentTransactions = [];
   static bool loading = true;
 
   Future init() async {
     final ss = await _gsheets.spreadsheet(_spreadSheetId);
     // fetch spreadsheet by its title
     _worksheet = ss.worksheetByTitle('Worksheet1');
+    countRows();
+  }
+
+  static Future countRows() async {
+    while ((await _worksheet!.values.value(
+          column: 1,
+          row: numberOfTransactions + 1,
+        )) !=
+        '') {
+      numberOfTransactions++;
+    }
+    loadTransictions();
+  }
+
+  static Future loadTransictions() async {
+    if (_worksheet == null) return;
+
+    for (int i = 1; i < numberOfTransactions; i++) {
+      final String transactionName =
+          await _worksheet!.values.value(column: 1, row: i + 1);
+      final String transactionAmount =
+          await _worksheet!.values.value(column: 2, row: i + 1);
+      final String transactionType =
+          await _worksheet!.values.value(column: 3, row: i + 1);
+
+      if (currentTransactions.length < numberOfTransactions) {
+        currentTransactions.add([
+          transactionName,
+          transactionAmount,
+          transactionType,
+        ]);
+      }
+    }
+    print(currentTransactions);
+    loading = false;
   }
 }
