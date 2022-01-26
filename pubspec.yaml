@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_dotenv: ^5.0.2
   flutter_easyloading: ^3.0.3
   gsheets: null
   shimmer: ^2.0.0

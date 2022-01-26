@@ -63,7 +63,44 @@ class GoogleSheetsApi {
         ]);
       }
     }
-    print(currentTransactions);
     loading = false;
+  }
+
+  // insert a new transaction
+  static Future insert(String name, String amount, bool _isIncome) async {
+    if (_worksheet == null) return;
+    numberOfTransactions++;
+    currentTransactions.add([
+      name,
+      amount,
+      _isIncome == true ? 'income' : 'expense',
+    ]);
+    await _worksheet!.values.appendRow([
+      name,
+      amount,
+      _isIncome == true ? 'income' : 'expense',
+    ]);
+  }
+
+  // CALCULATE THE TOTAL INCOME!
+  static double calculateIncome() {
+    double totalIncome = 0;
+    for (int i = 0; i < currentTransactions.length; i++) {
+      if (currentTransactions[i][2] == 'income') {
+        totalIncome += double.parse(currentTransactions[i][1]);
+      }
+    }
+    return totalIncome;
+  }
+
+  // CALCULATE THE TOTAL EXPENSE!
+  static double calculateExpense() {
+    double totalExpense = 0;
+    for (int i = 0; i < currentTransactions.length; i++) {
+      if (currentTransactions[i][2] == 'expense') {
+        totalExpense += double.parse(currentTransactions[i][1]);
+      }
+    }
+    return totalExpense;
   }
 }

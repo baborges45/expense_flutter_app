@@ -1,5 +1,6 @@
 import 'package:expense_flutter_app/repository/google_sheets_api.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:gsheets/gsheets.dart';
 
 import 'home/home_page.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomePage(),
+      builder: EasyLoading.init(),
     );
   }
 }
